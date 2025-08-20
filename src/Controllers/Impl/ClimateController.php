@@ -13,6 +13,7 @@ class ClimateController implements ControllerInterface
     private ClimateService $climateService;
     public const ACTIONS = [
         '/api/get-climate-by-city-name' => 'getClimate',
+        '/api/get-historic' => 'getHistoric',
     ];
 
     public function __construct(ClimateService $climateService)
@@ -39,5 +40,10 @@ class ClimateController implements ControllerInterface
     {
         $this->climateService->setFormData($_GET ?? []);
         return $this->climateService->getClimate();
+    }
+
+    private function getHistoric(): array
+    {
+        return $this->climateService->getHistoric();
     }
 }

@@ -39,6 +39,11 @@ class ClimateService extends AbstractService implements ServiceInterface
         return $data;
     }
 
+    public function getHistoric(): array
+    {
+        return $this->climateHistoricRepository->getAll();
+    }
+
     public function setFormData(array $formData): void
     {
         $this->formData = $formData;
