@@ -29,7 +29,6 @@ class Router
     {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
         $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
         foreach ($this->routes as $route) {
         if ($route['method'] === $requestMethod && $route['path'] === $requestUri) {
             $controller = $this->container->get($route['handler']);
