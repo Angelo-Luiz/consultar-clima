@@ -8,11 +8,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-black bg-gradient-to-br from-gray-900 via-black to-gray-800">
-      {/* Container centralizado */}
       <div className="min-h-screen flex items-center justify-center p-4">
         <div className="w-full max-w-4xl">
-          
-          {/* Header com título */}
+
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-white mb-2">
               ⛅ Consulta de Clima
@@ -22,9 +20,8 @@ export default function App() {
             </p>
           </div>
 
-          {/* Container principal com fundo opaco */}
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 overflow-hidden">
-            
+
             {/* Abas de navegação */}
             <div className="flex bg-black/20">
               <button
@@ -45,7 +42,7 @@ export default function App() {
                   <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-400"></div>
                 )}
               </button>
-              
+
               <button
                 onClick={() => setTelaAtiva("historico")}
                 className={`flex-1 px-6 py-4 font-semibold transition-all duration-300 relative ${
@@ -77,9 +74,7 @@ export default function App() {
 
           {/* Footer */}
           <div className="text-center mt-6">
-            <p className="text-gray-500 text-sm">
-              Desenvolvido com React & Tailwind CSS
-            </p>
+
           </div>
         </div>
       </div>

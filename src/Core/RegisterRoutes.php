@@ -18,5 +18,6 @@ class RegisterRoutes
     public function registerRoutes(): void
     {
         $this->router->add(ConfigConstants::GET, '/api/get-climate-by-city-name', ClimateController::class);
+        $this->router->add(ConfigConstants::GET, '/api/get-historic', ClimateController::class);
     }
 }
