@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers\Impl;
 
 use App\Controllers\ControllerInterface;
-use App\Services\Impl\Impl\ClimateService;
+use App\Services\Impl\ClimateService;
 use App\Utils\Impl\Response;
 use Exception;
 
@@ -35,8 +35,9 @@ class ClimateController implements ControllerInterface
         }
     }
 
-    private function getClimate(): void
+    private function getClimate(): array
     {
-        $this->climateService->getClimate();
+        $this->climateService->setFormData($_GET ?? []);
+        return $this->climateService->getClimate();
     }
 }

@@ -13,10 +13,11 @@ export default class CepService {
         });
     }
 
-    static async getCityClimate()
+    static async getCityClimate(cityName)
     {
-        await Request.request({
-            url: `http://localhost:8080`
+       return await Request.request({
+            url: `http://localhost:8080/api/get-climate-by-city-name?cityName=${encodeURI(cityName)}`,
+           method: 'GET'
         })
     }
 }

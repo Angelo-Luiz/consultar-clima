@@ -16,7 +16,7 @@ class AbstractService implements ServiceInterface
     {
         $curl = curl_init();
         if ($urlParams) {
-            $router .= '?///' . http_build_query($data);
+            $router .= '?' . http_build_query($data);
         }
         $options = [
             CURLOPT_URL => $router,
@@ -46,7 +46,7 @@ class AbstractService implements ServiceInterface
 
     protected function handleReturn(int $httpCode, array $response): array
     {
-        if (! in_array($httpCode, self::SUCCES_CODE) || ! $response['success']) {
+        if (! in_array($httpCode, self::SUCCES_CODE)) {
            throw new Exception($response['error']['info']);
         }
         return [

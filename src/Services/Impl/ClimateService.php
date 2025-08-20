@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services\Impl\Impl;
+namespace App\Services\Impl;
 
 use App\Constants\ConfigConstants;
 use App\Repository\Impl\ClimateHistoricRepository;
@@ -11,7 +11,7 @@ use App\Services\ServiceInterface;
 class ClimateService extends AbstractService implements ServiceInterface
 {
     private ClimateHistoricRepository $climateHistoricRepository;
-    public const URL_WEATHERSTACK = 'https://api.weatherstack.com';
+    private array $formData = [];
     public const ACTION = 'current';
 
     public function __construct(ClimateHistoricRepository $climateHistoricRepository)
@@ -22,13 +22,13 @@ class ClimateService extends AbstractService implements ServiceInterface
     public function getClimate(): array
     {
         $url = $this->buildUrl([
-            self::URL_WEATHERSTACK,
+            ConfigConstants::URL_WEATHERSTACK,
             self::ACTION,
         ]);
         $data = $this->request(
             $url,
-            'GET',
-            ['access_key' => ConfigConstants::API_KEY_WHEATHERSTACK, 'query' => 'New Delhi'],
+            ConfigConstants::GET,
+            ['access_key' => ConfigConstants::API_KEY_WHEATHERSTACK, 'query' => $this->formData['cityName']],
         true
         );
 
@@ -37,5 +37,10 @@ class ClimateService extends AbstractService implements ServiceInterface
         ]);
 
         return $data;
+    }
+
+    public function setFormData(array $formData): void
+    {
+        $this->formData = $formData;
     }
 }

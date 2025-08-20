@@ -14,7 +14,6 @@ export default class Request {
             }
 
             const response = await fetch(url, options);
-
             return await response.json();
         } catch (error) {
             console.error("Erro na requisição:", error);

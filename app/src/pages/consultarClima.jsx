@@ -1,11 +1,15 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import CepService from "../service/CepService.js";
+import Modal from './Modal.jsx';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export default function ConsultarClima() {
     const [cep, setCep] = useState("");
     const [cidade, setCidade] = useState("");
     const [loading, setLoading] = useState(false);
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalData, setModalData] = useState(null);
     const formatarCEP = (valor) => {
         const apenasNumeros = valor.replace(/\D/g, "");
         return apenasNumeros.replace(/(\d{5})(\d{3})/, "$1-$2");
@@ -18,18 +22,30 @@ export default function ConsultarClima() {
         }
     };
 
-    const getClimate = () => {
-        CepService.getCityClimate();
+    const getClimate = async () => {
         if (!cidade.trim()) {
             alert("Por favor, informe uma cidade!");
             return;
         }
-
         setLoading(true);
-        setTimeout(() => {
+        try {
+            const response = await CepService.getCityClimate(cidade);
+            if (response.status === "success") {
+                setModalData({
+                    temperature: response.data.current.temperature,
+                    humidity: response.data.current.humidity,
+                    windSpeed: response.data.current.wind_speed,
+                    description: response.data.current.weather_descriptions?.[0],
+                    location: `${response.data.location.name}, ${response.data.location.country}`,
+                    weatherCode: response.data.current.weather_code
+                });
+                setIsModalOpen(true);
+            }
+        } catch (error) {
+            alert("Erro ao buscar clima");
+        } finally {
             setLoading(false);
-            alert(`Buscando clima para: ${cidade}`);
-        }, 2000);
+        }
     };
 
     return (
@@ -44,7 +60,7 @@ export default function ConsultarClima() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-                {/* Campo CEP + bot„o */}
+                {/* Campo CEP + bot√£o */}
                 <div className="space-y-2">
                     <label className="block text-sm font-medium text-gray-200 mb-2">
                         <i className="fas fa-map-marker-alt mr-2"></i>CEP
@@ -60,9 +76,10 @@ export default function ConsultarClima() {
                         />
                         <button
                             onClick={() => getCity(cep)}
-                            className={`px-4 py-3 rounded-lgfont-semibold`}
+                            disabled={loading}
+                            className={`px-4 py-3 rounded-lg font-semibold ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
                         >
-                            <i className="fas fa-search mr-2 text-white"/>
+                            <FontAwesomeIcon icon={faSearch} className="mr-2 text-white" />
                         </button>
                     </div>
                 </div>
@@ -84,7 +101,7 @@ export default function ConsultarClima() {
                 </div>
             </div>
 
-            {/* Bot„o de busca clima */}
+            {/* Bot√£o de busca clima */}
             <div className="text-center pt-4">
                 <button
                     onClick={() => getClimate()}
@@ -111,6 +128,13 @@ export default function ConsultarClima() {
                     )}
                 </button>
             </div>
+            {/* Modal */}
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title="Dados da cidade"
+                modalData={modalData}
+            />
         </div>
-    );
+    )
 }
