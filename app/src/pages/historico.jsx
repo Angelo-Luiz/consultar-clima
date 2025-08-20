@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import HistoricoService from "../service/HistoricoService.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartBar, faCity, faCloud, faCalendarAlt, faTemperatureHigh } from "@fortawesome/free-solid-svg-icons";
 
 export default function Historico() {
     const [historico, setHistorico] = useState([]);
@@ -20,25 +22,24 @@ export default function Historico() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h2 className="text-2xl font-bold text-white mb-2">
-                        📊 Histórico de Consultas
+                    <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+                        <FontAwesomeIcon icon={faChartBar} />
+                        Histórico de Consultas
                     </h2>
                     <p className="text-gray-300">
                         Suas últimas consultas de clima
                     </p>
                 </div>
-
             </div>
 
             {historico.length === 0 ? (
                 <div className="text-center py-16">
                     <div className="text-gray-400 mb-6">
-                        <svg className="w-20 h-20 mx-auto opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
+                        <FontAwesomeIcon icon={faChartBar} size="4x" className="opacity-50" />
                     </div>
-                    <h3 className="text-xl font-medium text-gray-300 mb-3">
-                        📝 Nenhuma consulta realizada
+                    <h3 className="text-xl font-medium text-gray-300 mb-3 flex items-center gap-2">
+                        <FontAwesomeIcon icon={faCalendarAlt} />
+                        Nenhuma consulta realizada
                     </h3>
                     <p className="text-gray-400 max-w-md mx-auto">
                         Suas consultas de clima aparecerão aqui. Faça sua primeira busca na aba "Consultar Clima"!
@@ -67,8 +68,9 @@ export default function Historico() {
                                 <div className="flex justify-between items-start">
                                     <div className="flex-1">
                                         <div className="flex items-center space-x-3 mb-3">
-                                            <h3 className="text-xl font-semibold text-white">
-                                                🏙️ {cidade}
+                                            <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+                                                <FontAwesomeIcon icon={faCity} />
+                                                {cidade}
                                             </h3>
                                             {estado && (
                                                 <span className="px-2 py-1 text-xs font-medium text-blue-300 bg-blue-500/20 rounded-full border border-blue-500/30">
@@ -77,18 +79,17 @@ export default function Historico() {
                                             )}
                                         </div>
                                         <p className="text-gray-300 mb-2 flex items-center">
-                                            <span className="mr-2">☁️</span>
+                                            <FontAwesomeIcon icon={faCloud} className="mr-2" />
                                             {descricao}
                                         </p>
                                         <p className="text-sm text-gray-400 flex items-center">
-                                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
+                                            <FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />
                                             {data}
                                         </p>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-3xl font-bold text-blue-400 mb-1">
+                                        <div className="text-3xl font-bold text-blue-400 mb-1 flex items-center gap-2">
+                                            <FontAwesomeIcon icon={faTemperatureHigh} />
                                             {temperatura}°C
                                         </div>
                                         <div className="text-xs text-gray-400 uppercase tracking-wide">
