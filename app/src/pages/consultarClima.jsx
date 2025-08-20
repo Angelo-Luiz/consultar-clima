@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import CepService from "../service/CepService.js";
-import Modal from './Modal.jsx';
+import Modal from './modal.jsx';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
