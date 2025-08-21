@@ -1,6 +1,8 @@
 # Sistema de Consulta Climática
-
 Sistema web para consulta de condições climáticas em tempo real com armazenamento de histórico de consultas.
+
+![Demonstração](ezgif-3fcb9b7bc359c5.gif)
+
 
 ## Tecnologias Utilizadas
 
